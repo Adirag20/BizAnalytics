@@ -20,7 +20,8 @@ def analyze_sales():
         
         # 3. Monthly Trends
         print("\nMonthly Revenue Trends:")
-        df['Month'] = df['Date'].dt.to_period('M')
+        # create a monthly PeriodIndex from the Date column (avoids using the .dt accessor)
+        df['Month'] = pd.PeriodIndex(df['Date'], freq='M')
         monthly_revenue = df.groupby('Month')['Total_Revenue'].sum()
         print(monthly_revenue)
         
